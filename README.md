@@ -69,18 +69,66 @@ INFO: Linux 5.15.0-56-generic amd64
 2. Разархивируем, делаем так, чтобы binary был доступен через вызов в shell (или меняем переменную PATH или любой другой удобный вам способ)
 3. Удаляем из `apache-maven-<version>/conf/settings.xml` упоминание о правиле, отвергающем http соединение( раздел mirrors->id: my-repository-http-unblocker)
 4. Проверяем `mvn --version`
-5. Забираем директорию [mvn](./mvn) с pom
+
+```bash
+root@vkvm:/home/vk/DZ9.3/mvn# mvn --version
+Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
+Maven home: /root/apache-maven-3.8.6
+Java version: 11.0.17, vendor: Ubuntu, runtime: /usr/lib/jvm/java-11-openjdk-amd64
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "5.15.0-56-generic", arch: "amd64", family: "unix"
+```
+
+6. Забираем директорию [mvn](./mvn) с pom
 
 ### Основная часть
 
 1. Меняем в `pom.xml` блок с зависимостями под наш артефакт из первого пункта задания для Nexus (java с версией 8_282)
 2. Запускаем команду `mvn package` в директории с `pom.xml`, ожидаем успешного окончания
-3. Проверяем директорию `~/.m2/repository/`, находим наш артефакт
-4. В ответе присылаем исправленный файл `pom.xml`
 
 ### Ответ
 
-[Ссылка на pom.xml](/.pom.xml)
+```bash
+root@vkvm:/home/vk/DZ9.3/mvn# mvn package
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.netology.app:simple-app >---------------------
+[INFO] Building simple-app 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from my-repo: http://158.160.56.25:8081/repository/maven-public/netology/java/8_282/java-8_282.pom
+[WARNING] The POM for netology:java:tar.gz:distrib:8_282 is missing, no dependency information available
+Downloading from my-repo: http://158.160.56.25:8081/repository/maven-public/netology/java/8_282/java-8_282-distrib.tar.gz
+Downloaded from my-repo: http://158.160.56.25:8081/repository/maven-public/netology/java/8_282/java-8_282-distrib.tar.gz (237 kB at 678 kB/s)
+[INFO] 
+..............................................................
+WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: /home/vk/DZ9.3/mvn/target/simple-app-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  30.368 s
+[INFO] Finished at: 2022-12-19T19:48:48+03:00
+[INFO] ------------------------------------------------------------------------
+```
+
+4. Проверяем директорию `~/.m2/repository/`, находим наш артефакт
+
+### Ответ
+
+```bash
+root@vkvm:/home/vk/DZ9.3/mvn# ls -l ~/.m2/repository/netology/java/8_282/
+total 244
+-rw-r--r-- 1 root root 236594 дек 19 19:48 java-8_282-distrib.tar.gz
+-rw-r--r-- 1 root root     40 дек 19 19:48 java-8_282-distrib.tar.gz.sha1
+-rw-r--r-- 1 root root    731 дек 19 19:48 java-8_282.pom.lastUpdated
+-rw-r--r-- 1 root root    175 дек 19 19:48 _remote.repositories
+```
+
+6. В ответе присылаем исправленный файл `pom.xml`
+
+### Ответ
+
+[Ссылка на pom.xml](./pom.xml)
 
 ---
 
