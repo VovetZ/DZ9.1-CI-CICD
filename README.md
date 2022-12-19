@@ -59,7 +59,7 @@ INFO: Linux 5.15.0-56-generic amd64
 
 ### Ответ
 
-[Ссылка на maven-metadata.xml](/.maven-metadata.xml)
+[Ссылка на maven-metadata.xml](./maven-metadata.xml)
 
 ### Знакомство с Maven
 
